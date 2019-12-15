@@ -78,7 +78,7 @@ d3.json("data/samples.json").then((importedData) => {
             },
             autosize: "true"
         }
-        Plotly.newPlot("plot3", data, layout, {responsive: true});
+        Plotly.newPlot("plot2", data, layout, {responsive: true});
     }
 
     function metaData(searchValue) {
