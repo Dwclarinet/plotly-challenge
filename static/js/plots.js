@@ -10,13 +10,17 @@ d3.json("data/samples.json").then((importedData) => {
         optionValue.append("option")
         .text(sample.id)
     });
+    // Find starting info
     var searchElement = d3.select("#exampleSelect1");
     var searchValue = searchElement.property("value");
 
     function buildBarPlot() {
+        // Get current value
         var searchElement = d3.select("#exampleSelect1");
         var searchValue = searchElement.property("value");
+        // Find chosen object
         var sample = samples.find(x => x.id == searchValue);
+        // Use only top 10 samples
         var sample_values = sample.sample_values.slice(0,10);
         var otu_ids = sample.otu_ids.slice(0,10);
         var otu_labels = sample.otu_labels.slice(0,10);
@@ -45,8 +49,10 @@ d3.json("data/samples.json").then((importedData) => {
     }
 
     function bubbleChart(searchValue) {
+        // Get current value
         var searchElement = d3.select("#exampleSelect1");
         var searchValue = searchElement.property("value");
+        // Find chosen object
         var sample = samples.find(x => x.id == searchValue);
         var sample_values = sample.sample_values;
         var otu_ids = sample.otu_ids;
@@ -76,9 +82,11 @@ d3.json("data/samples.json").then((importedData) => {
     }
 
     function metaData(searchValue) {
+        // Ger current value
         var searchElement = d3.select("#exampleSelect1");
         var searchValue = searchElement.property("value");
         var metaData = data.metadata;
+        // Find chosen Object
         var sample = metaData.find(x => x.id == searchValue);
         var metaField = d3.select("#metaData");
         metaField.html("");
@@ -86,12 +94,14 @@ d3.json("data/samples.json").then((importedData) => {
             metaField.append("h6")
             .text(`${data}`);
         });
-        // console.log(keyValues);
     }
+
+    // Run initial plots for starting value
     buildBarPlot(searchValue);
     bubbleChart(searchValue);
     metaData(searchValue);
 
+    // Whenever new value is chose, run plot functions
     d3.select("select").on("change", function(searchValue){
         buildBarPlot(searchValue);
         bubbleChart(searchValue);
